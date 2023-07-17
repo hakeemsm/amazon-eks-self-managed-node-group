@@ -24,3 +24,7 @@ output "ami_description" {
 output "ami_creation_date" {
   value = data.aws_ami.selected_eks_optimized_ami.creation_date
 }
+
+output "id" {
+  value = aws_launch_template.eks_self_managed_nodes.id
+}
