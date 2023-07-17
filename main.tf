@@ -27,28 +27,22 @@ resource "aws_autoscaling_group" "eks_self_managed_node_group" {
     version = "$Latest"
   }
 
-  tag = concat(
-    [
-      for tag, value in var.tags : {
-        key                 = tag
-        value               = value
-        propagate_at_launch = true
-      }
-    ],
-    [
-      {
-        key                 = "Name"
-        value               = "${var.eks_cluster_name}-${local.node_group_name}"
-        propagate_at_launch = true
-      },
-      {
-        key                 = "kubernetes.io/cluster/${var.eks_cluster_name}"
-        value               = "owned"
-        propagate_at_launch = true
-      },
-    ]
-  )
+  tag {
 
+
+    key                 = "Name"
+    value               = "${var.eks_cluster_name}-${local.node_group_name}"
+    propagate_at_launch = true
+
+  }
+  tag {
+    key                 = "kubernetes.io/cluster/${var.eks_cluster_name}"
+    value               = "owned"
+    propagate_at_launch = true
+
+
+
+  }
 
   # Ensure the IAM role has been created (and the policies have been attached)
   # before creating the auto-scaling group.
