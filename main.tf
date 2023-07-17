@@ -27,7 +27,7 @@ resource "aws_autoscaling_group" "eks_self_managed_node_group" {
     version = "$Latest"
   }
 
-  tags = concat(
+  tag = concat(
     [
       for tag, value in var.tags : {
         key                 = tag
